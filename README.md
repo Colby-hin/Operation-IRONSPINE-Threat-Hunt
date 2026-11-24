@@ -11,6 +11,30 @@
 
 ---
 
+## Table of Contents
+
+1. [Executive Summary](#executive-summary)
+2. [Hunt Scope and Trigger](#hunt-scope-and-trigger)
+3. [Key Findings](#key-findings)
+4. [Attack Timeline](#attack-timeline)
+5. [Technical Analysis](#technical-analysis)
+   - [Initial Access and Dependency Compromise](#initial-access-and-dependency-compromise)
+   - [Payload Delivery and Execution](#payload-delivery-and-execution)
+   - [Lateral Propagation Through CI/CD](#lateral-propagation-through-cicd)
+   - [Production Execution and Credential Access](#production-execution-and-credential-access)
+   - [Persistence](#persistence)
+   - [Outbound Communication and Payload Visibility](#outbound-communication-and-payload-visibility)
+   - [Network Baseline and Traffic Discrimination](#network-baseline-and-traffic-discrimination)
+   - [Database Reconnaissance and Data at Risk](#database-reconnaissance-and-data-at-risk)
+   - [Supply Chain Root Cause and Attribution](#supply-chain-root-cause-and-attribution)
+   - [Legitimate Activity and Application Noise](#legitimate-activity-and-application-noise)
+6. [Indicators of Compromise](#indicators-of-compromise)
+7. [MITRE ATT&CK Mapping](#mitre-attck-mapping)
+8. [Detection Opportunities](#detection-opportunities)
+9. [Recommended Actions](#recommended-actions)
+
+---
+
 ## Executive Summary
 
 A process monitor identified abnormal CPU and memory consumption on NovaBridge Analytics' production application server, `nb-app01`, accompanied by an unexpected Python subprocess and an outbound connection outside the reported LiteLLM proxy configuration. The investigation traced the activity to an automated dependency update on the CI/CD runner, `nb-cicd01`, which upgraded LiteLLM from version 1.82.6 to the compromised release 1.82.8.
