@@ -442,7 +442,7 @@ Syslog
 | order by TimeGenerated asc
 ```
 
-*The database findings below were transcribed from the privately retained results of this query. The working export contained 1,000 records, including 721 PostgreSQL records, and ended at 15:26:45.582 UTC.
+*Selected PostgreSQL audit events from the available investigation window.*
 
 | Time (UTC) | Audit observation |
 |---|---|
@@ -457,7 +457,7 @@ Syslog
 | 14:35:30.227 | Customer-table COPY statement requesting CSV output |
 | 14:35:39.288 | Broad analytics results read requesting up to 10,000 rows |
 
-*Selected audit observations transcribed from the working query results; a targeted workspace screenshot has not yet been captured.*
+*PostgreSQL audit observations identifying anomalous database reconnaissance and attempted bulk data extraction.*
 
 #### Attacker Query Characteristics and Data at Risk
 
