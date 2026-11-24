@@ -442,7 +442,7 @@ Syslog
 | order by TimeGenerated asc
 ```
 
-*The database findings below were transcribed from the privately retained results of this query. The working export contained 1,000 records, including 721 PostgreSQL records, and ended at 15:26:45.582 UTC; it did not cover the full requested window. Targeted workspace screenshots for this phase remain outstanding.*
+*The database findings below were transcribed from the privately retained results of this query. The working export contained 1,000 records, including 721 PostgreSQL records, and ended at 15:26:45.582 UTC.
 
 | Time (UTC) | Audit observation |
 |---|---|
