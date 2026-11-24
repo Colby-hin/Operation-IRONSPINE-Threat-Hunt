@@ -1,0 +1,7 @@
+Syslog
+| where RunId_CF == "is-214-20261024"
+| where TimeGenerated between (datetime(2026-10-24 14:00:00) .. datetime(2026-10-24 16:00:00))
+| where Computer == "nb-db01"
+| project TimeGenerated, Computer, ProcessName,
+    SyslogMessage, Facility, SeverityLevel
+| order by TimeGenerated asc

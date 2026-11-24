@@ -1,0 +1,9 @@
+DeviceNetworkEvents_CL
+| where RunId == "is-214-20261024"
+| where Timestamp between (datetime(2026-10-24 14:25:43.500) .. datetime(2026-10-24 16:00:00))
+| where DeviceName == "nb-app01"
+| project Timestamp, DeviceName, LocalIP, RemoteIP,
+    RemotePort, Protocol, ActionType,
+    InitiatingProcessFileName, InitiatingProcessId,
+    InitiatingProcessFolderPath, InitiatingProcessAccountName
+| order by Timestamp asc

@@ -1,0 +1,7 @@
+PackageAudit_CL
+| where RunId == "is-214-20261024"
+| where TimeGenerated between (datetime(2026-10-24 14:00:00) .. datetime(2026-10-24 16:00:00))
+| where Computer == "nb-cicd01"
+| where PackageName =~ "litellm"
+| project TimeGenerated, Computer, PackageName, PreviousVersion, Version, Action, Source
+| order by TimeGenerated asc

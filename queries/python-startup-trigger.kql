@@ -1,0 +1,8 @@
+DeviceFileEvents_CL
+| where RunId == "is-214-20261024"
+| where Timestamp between (datetime(2026-10-24 14:00:00) .. datetime(2026-10-24 16:00:00))
+| where DeviceName == "nb-cicd01"
+| where FolderPath contains "site-packages"
+| where FileName endswith ".pth"
+| project Timestamp, DeviceName, FileName, FolderPath, ActionType, InitiatingProcessFileName, InitiatingProcessId
+| order by Timestamp asc

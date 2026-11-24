@@ -1,0 +1,11 @@
+DeviceProcessEvents_CL
+| where RunId == "is-214-20261024"
+| where Timestamp between (datetime(2026-10-24 14:15:26.186) .. datetime(2026-10-24 16:00:00))
+| where DeviceName == "nb-cicd01"
+| where FileName startswith "python"
+    or InitiatingProcessFileName startswith "python"
+| project Timestamp, DeviceName, FileName,
+    ProcessCommandLine, ProcessId, AccountName,
+    InitiatingProcessFileName, InitiatingProcessId,
+    InitiatingProcessCommandLine
+| order by Timestamp asc

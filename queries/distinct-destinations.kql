@@ -1,0 +1,10 @@
+DeviceNetworkEvents_CL
+| where RunId == "is-214-20261024"
+| where Timestamp between (datetime(2026-10-24 14:00:00) .. datetime(2026-10-24 16:00:00))
+| where DeviceName == "nb-app01"
+| where InitiatingProcessFileName =~ "python3"
+| where not(ipv4_is_in_range(RemoteIP, "10.0.0.0/8"))
+| where RemoteIP != "198.51.100.44"
+| distinct RemoteIP
+| summarize DestinationCount = count(),
+    Destinations = make_set(RemoteIP)

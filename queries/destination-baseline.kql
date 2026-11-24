@@ -1,0 +1,15 @@
+DeviceNetworkEvents_CL
+| where RunId == "is-214-20261024"
+| where Timestamp between (datetime(2026-10-24 14:00:00) .. datetime(2026-10-24 16:00:00))
+| where DeviceName == "nb-app01"
+| where RemotePort == 443
+| summarize
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    TotalConnections = count(),
+    BaselineConnections = countif(Timestamp < datetime(2026-10-24 14:26:43.488)),
+    BackdoorConnections = countif(InitiatingProcessId == 3061),
+    PersistenceConnections = countif(InitiatingProcessId == 3070),
+    ProcessIDs = make_set(InitiatingProcessId)
+    by RemoteIP
+| order by TotalConnections desc

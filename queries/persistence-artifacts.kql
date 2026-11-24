@@ -1,0 +1,8 @@
+DeviceFileEvents_CL
+| where RunId == "is-214-20261024"
+| where Timestamp between (datetime(2026-10-24 14:26:43.488) .. datetime(2026-10-24 14:29:00))
+| where DeviceName == "nb-app01"
+| where InitiatingProcessId == 3061
+| project Timestamp, DeviceName, FileName, FolderPath,
+    ActionType, InitiatingProcessFileName, InitiatingProcessId
+| order by Timestamp asc
