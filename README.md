@@ -1,6 +1,6 @@
 # Operation IRONSPINE
 
-**Threat Hunt Report | Operation IRONSPINE | Linux Supply Chain Compromise**
+**Threat Hunt Report | Operation IRONSPINE | Supply Chain Compromise**
 
 **Environment:** Simulated SOC investigation in an Azure cyberrange  
 **Platform:** Microsoft Sentinel / Azure Log Analytics  
