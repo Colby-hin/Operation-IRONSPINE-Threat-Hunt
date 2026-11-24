@@ -60,7 +60,7 @@ At approximately 15:00 UTC, the production process monitor reported resource exh
 | Run identifier | `is-214-20261024` |
 | Telemetry | CI/CD pipeline, package audit, endpoint process/file/network events, PostgreSQL Syslog; logon telemetry available but not independently queried |
 
-The investigation used KQL to correlate package changes, pipeline steps, process ancestry, file creation, network connections, and PostgreSQL audit events. Custom tables were scoped with `RunId`; Syslog was scoped with `RunId_CF`. The [queries directory](queries/) contains the executed searches reproduced below. The [evidence directory](evidence/) contains the original evidence screenshots. Raw query exports used during analysis are retained privately and are not included in the public repository. The March 2026 public LiteLLM incident provides threat intelligence context for this simulated October 2026 incident.
+The investigation used KQL to correlate package changes, pipeline steps, process ancestry, file creation, network connections, and PostgreSQL audit events. Custom tables were scoped with `RunId`; Syslog was scoped with `RunId_CF`. The [queries directory](queries/) contains the executed searches reproduced below. The [evidence directory](evidence/) contains the original evidence screenshots.
 
 ---
 
