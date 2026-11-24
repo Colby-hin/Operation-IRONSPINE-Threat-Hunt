@@ -511,10 +511,14 @@ These are recommended detection opportunities, not production-validated alert ru
 
 ## Recommended Actions
 
-**Immediate:** Isolate `nb-cicd01` and `nb-app01`, suspend the affected CI/CD job and deployments, restrict suspicious egress, and preserve endpoint, container, registry, and database evidence. Revoke and rotate potentially exposed LLM API keys, cloud credentials, Git and registry credentials, database passwords, and customer encryption material from trusted systems. Coordinate credential and key rotation with the service owners and assess historical ciphertext exposure; rotation alone cannot undo prior disclosure.
+Top five remediation actions in priority order:
 
-**Near term:** Remove the compromised dependency and startup trigger, eradicate unauthorized persistence, and rebuild affected hosts and images from verified clean sources. Quarantine affected images and inspect other systems that received them. Review PostgreSQL audit activity, restrict application account permissions, and assess customer data exposure without assuming every targeted record was stolen. Pin to an approved, verified clean dependency version and prevent reuse of the compromised releases.
+1. Revoke and rotate ALL exposed credentials immediately: LLM API keys, AWS credentials, database passwords, Docker registry tokens, and the `CUSTOMER_ENCRYPTION_KEY` on nb-app01. **Risk addressed:** the attacker holds valid credentials and can use them from outside the network.
 
-**Long term:** Enforce reproducible dependency locks, known-good artifact hashes, secure CI/CD identities, and deployment gates that assess dependency integrity as well as known vulnerabilities. Maintain outbound and database query baselines, implement the priority behavioral detections, and improve visibility into payload transfer outcomes and database session attribution. Remediation is recommended here; no containment, eradication, or recovery actions were performed in the cyberrange investigation.
+2. Remove persistence from both hosts: delete `~/.config/sysmon/sysmon.py` and `sysmon.service`, disable the systemd user service, and remove `litellm_init.pth` from site-packages. **Risk addressed:** the attacker maintains access through the persistence mechanism.
 
-[Hunt completion evidence](evidence/hunt-completion.webp) — completed on 24 November 2026 with 23/23 flags, 2,250/2,250 points, and the Deadeye badge.
+3. Pin litellm to version `1.82.6` (or a verified clean version) and block `1.82.7` and `1.82.8`. **Risk addressed:** any future pip install could pull the backdoored version again.
+
+4. Block `models.litellm.cloud` (`198.51.100.44`) at the network perimeter. **Risk addressed:** the persistence component polls this address for follow-on payloads.
+
+5. Gate the pipeline on hash verification against a known-good manifest and pinned versions, with dependency scanning (for example Dependabot or Snyk) before deployment. The existing security scan ran and did not see the backdoor. **Risk addressed:** future supply chain attacks pass through the pipeline undetected.
