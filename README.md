@@ -427,9 +427,7 @@ DeviceNetworkEvents_CL
 PostgreSQL audit activity on `nb-db01` departed from the application's normal statement patterns. The available lead-in records contain nine distinct recurring statement templates, including health checks, parameterized customer-specific retrieval, routine writes, and time-bounded aggregations. At 14:28:50.204 UTC, PostgreSQL recorded a connection from the production server (`10.7.0.20`). At 14:28:51.179, the `app_svc` account was authorized to access `novabridge`. Four seconds later, previously unseen catalogue queries appeared.
 
 #### Database Query Source
-
-The observed source and timing, combined with the [production credential targeting](#production-execution-evidence), support abuse of the database credentials in `DATABASE_URL`. The hunt's confirmation further attributes the connection to the persistence script, PID 3070, contacting `10.7.0.30:5432` at 14:28:47 and reports no anomalous SSH logons to the database host. These additional details are hunt-provided corroboration: the process-to-network join and logon validation query were not independently executed. The Syslog messages lack a shared session identifier linking the connection, authentication, and individual statements, so their specific association is inferred from timing and context.
-
+The PostgreSQL audit logs identified a connection originating from `nb-app01` (`10.7.0.20`), followed by successful authentication using the `app_svc` database account and anomalous system catalogue queries. Correlating this activity with the earlier [production credential targeting](#production-execution-evidence) supports suspected abuse of the database credentials stored in `DATABASE_URL`.
 <a id="database-audit-evidence"></a>
 
 ```kql
